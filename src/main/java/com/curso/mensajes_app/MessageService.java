@@ -23,11 +23,13 @@ public class MessageService {
 
     public static void listMessages(){
         MessageDAO.readMessageDB();
-
     }
 
     public static void deleteMessage(){
-
+        System.out.println("Escribe el id del mensaje a eliminar: ");
+        Scanner sc = new Scanner(System.in);
+        int idMessage = sc.nextInt();
+        MessageDAO.deleteMessageDB(idMessage);
     }
 
     public static void updateMessage(){

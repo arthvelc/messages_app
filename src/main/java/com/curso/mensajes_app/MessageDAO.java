@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-
+// La capa DAO (Data Access Object) es la encargada de interactuar con la base de datos.
 public class MessageDAO {
 
     // private String url = "jdbc:mysql://localhost:3306/mensajes_app";
@@ -14,7 +14,7 @@ public class MessageDAO {
     //esta parte va a hacer el CRUD de la base de datos.
 
 
-    //metodo para creat el mesaje
+    //metodo para crear el mensaje
     public static void createMessageDB(Message message) {
         // Instanciar la clase Conexion
         Conexion dbConnect = new Conexion();
@@ -42,8 +42,6 @@ public class MessageDAO {
         } catch (SQLException e) {
             System.out.println(e);
         }
-
-
     }
 
     //metodo para leer los mensajes
@@ -84,12 +82,30 @@ public class MessageDAO {
 
     //metodo para borrar un mensaje
     public static void deleteMessageDB(int id_message) {
-
+        Conexion dbConnect = new Conexion();
+    
+        try(Connection connect = dbConnect.getConnectionApp()){
+            PreparedStatement ps = null;
+            try{
+                String query = "DELETE FROM mensajes WHERE id_mensajes = ?";
+                ps = connect.prepareStatement(query);
+                //setInt lleva por parametro el indice y el valor que se va a eliminar en este caso el id del mensaje.
+                ps.setInt(1, id_message);
+                ps.executeUpdate();
+                System.out.println("============================================");
+                System.out.println("El mensaje ha sido eliminado con éxito");
+    
+            }catch(SQLException ex){
+                System.out.println(ex);
+                System.out.println("No se pudo eliminar el mensaje");
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
     }
-
     //metodo para actualizar un mensaje
     public static void updateMessageDB(Message message) {
-
+    
     }
 
 }
