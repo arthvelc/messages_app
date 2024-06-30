@@ -105,7 +105,25 @@ public class MessageDAO {
     }
     //metodo para actualizar un mensaje
     public static void updateMessageDB(Message message) {
-    
+        Conexion dbConnect = new Conexion();
+
+        try(Connection connect = dbConnect.getConnectionApp()){
+            PreparedStatement ps = null;
+            try{
+                String query = "UPDATE mensajes SET mensaje = ? WHERE id_mensajes = ?";
+                ps= connect.prepareStatement(query);
+                ps.setString(1, message.getMessage());
+                ps.setInt(2, message.getIdMessage());
+                ps.executeUpdate();
+                System.out.println("============================================");
+                System.out.println("El mensaje ha sido actualizado con éxito");
+            }catch(SQLException ex){
+                System.out.println(ex);
+                System.out.println("No se pudo actualizar el mensaje");
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
     }
 
 }
