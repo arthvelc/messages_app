@@ -4,15 +4,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-    
-
+    // Atributos de la clase
+    private String url = "jdbc:mysql://localhost:3306/mensajes_app"; // el url de la base de datos
+    private String user = "root";
+    private String password = "";
 
     // Metodo para conectarse a la base de datos
     public Connection getConnectionApp() {
-    	// Atributos de la clase
-        String url = "jdbc:mysql://localhost:3306/mensajes_app"; // el url de la base de datos
-        String user = "root";
-        String password = "";
         // Connection es una interfaz de java.sql
         //Sirve para establecer la conexion con la base de datos
         Connection conection = null;

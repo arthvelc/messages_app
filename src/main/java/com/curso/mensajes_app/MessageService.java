@@ -22,6 +22,7 @@ public class MessageService {
     }
 
     public static void listMessages(){
+        MessageDAO.readMessageDB();
 
     }
 

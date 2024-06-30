@@ -2,6 +2,7 @@ package com.curso.mensajes_app;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 
 
 public class MessageDAO {
@@ -47,7 +48,38 @@ public class MessageDAO {
 
     //metodo para leer los mensajes
     public static void readMessageDB() {
+        // Instanciar la clase Conexion
+        Conexion dbConnect = new Conexion();
 
+        // Crear la conexion a la base de datos
+        try(Connection connect = dbConnect.getConnectionApp()){
+            // Preparar la consulta SQL
+            PreparedStatement ps = null;
+            //ResultSet es una interfaz de java.sql que sirve para manejar los resultados de una consulta SQL en una base de datos relacional en MySQL o MariaDB por ejemplo. 
+            ResultSet rs = null;
+
+            try{
+                String query = "SELECT * FROM mensajes";
+                ps = connect.prepareStatement(query);
+                rs = ps.executeQuery(query);
+                System.out.println("=================================");
+                System.out.println("Mensajes: ");
+                System.out.println("=================================");
+                while (rs.next()){
+                    System.out.println("ID: " + rs.getInt("id_mensajes"));
+                    System.out.println("Autor: " + rs.getString("autor_mensaje"));
+                    System.out.println("Mensaje: " + rs.getString("mensaje"));
+                    System.out.println("Fecha: " + rs.getString("fecha_mensaje"));
+                    System.out.println("=================================");
+                }
+
+                System.out.println("Todos los mensajes se han mostrado con éxito");
+            }catch(SQLException ex){
+                System.out.println(ex);
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
     }
 
     //metodo para borrar un mensaje

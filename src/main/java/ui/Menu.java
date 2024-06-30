@@ -7,21 +7,23 @@ public class Menu {
     
     public static void showMenu() {
     	int option = 0;
-        
+    	Scanner sc = new Scanner(System.in);
+    	
 		do{
 			
-            System.out.println("-----------------");
+            System.out.println("-----------------------");
             System.out.println("Aplicacion de mensajes");
+            System.out.println("-----------------------");
             System.out.println("1. Crear mensaje");
             System.out.println("2. Listar mensajes");
             System.out.println("3. Editar mensaje");
             System.out.println("4. Eliminar mensaje");
             System.out.println("5. Salir");
-           
-        	Scanner sc = new Scanner(System.in);
+            System.out.println("-----------------------");
+            
         	option = sc.nextInt();
 
-                
+            clearConsole();   
 
             switch(option){
                 case 1:
@@ -36,6 +38,13 @@ public class Menu {
                 case 4:
                     MessageService.deleteMessage();
                     break;
+                case 5:
+                	System.out.println("=================================");
+                	System.out.println("Gracias por usar la APP");
+                	System.out.println("Hasta luego");
+                	System.out.println("	c:			");
+                	System.out.println("=================================");
+                	break;
                 default:
                     break;
             } 
@@ -53,6 +62,7 @@ public class Menu {
                 System.out.flush();
             }
         } catch (final Exception e) {
+        	System.out.println("hubo algo mal");
             // En caso de error, simplemente se intenta imprimir líneas en blanco
             for (int i = 0; i < 100; i++) {
                 System.out.println();
